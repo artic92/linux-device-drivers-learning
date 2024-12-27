@@ -1,6 +1,6 @@
 # Linux Device Drivers Learning
 
-![Build Status](https://github.com/artic92/linux-device-drivers-learning/actions/workflows/build_and_test.yml/badge.svg)
+![Build Status](https://github.com/artic92/linux-device-drivers-learning/actions/workflows/build_and_test.yaml/badge.svg)
 ![License](https://img.shields.io/github/license/artic92/linux-device-drivers-learning)
 ![Last Commit](https://img.shields.io/github/last-commit/artic92/linux-device-drivers-learning)
 ![Kernel Version](https://img.shields.io/badge/Kernel-6.0%2B-blue)
