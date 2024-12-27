@@ -1,0 +1,48 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Install dependencies (kernel headers, build tools, etc.)
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential linux-headers-$(uname -r) cppcheck
+
+      # Step 3: Build all modules
+      - name: Build Modules
+        run: |
+          for dir in ./*; do
+            if [ -d "$dir" ]; then
+              echo "Building module in $dir..."
+              make -C $dir
+            fi
+          done
+
+      # Step 4: Run static code analysis
+      - name: Static Code Analysis
+        run: |
+          cppcheck --enable=all --suppress=missingIncludeSystem --quiet --error-exitcode=1 .
+
+      # Step 5: Clean up build artifacts
+      - name: Clean Up
+        run: |
+          for dir in ./*; do
+            if [ -d "$dir" ]; then
+              make -C $dir clean
+            fi
+          done
